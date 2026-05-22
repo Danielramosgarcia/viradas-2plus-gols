@@ -90,21 +90,21 @@ Dos comebacks detectados: **71.6% terminam em empate** e 28.4% em virada complet
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                    Docker Compose                        │
-│                                                          │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
-│  │ python-worker│  │ evolution-api│  │     n8n      │  │
-│  │    :8000     │──│    :8080     │  │    :5678     │  │
-│  │              │  │              │  │  (opcional)  │  │
-│  │ - server.py  │  │  WhatsApp    │  │  workflows   │  │
-│  │ - cron jobs  │  │  gateway     │  │              │  │
-│  │ - modelo     │  └──────┬───────┘  └──────────────┘  │
+│                    Docker Compose                       │
+│                                                         │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐   │
+│  │ python-worker│  │ evolution-api│  │     n8n      │   │
+│  │    :8000     │──│    :8080     │  │    :5678     │   │
+│  │              │  │              │  │  (opcional)  │   │
+│  │ - server.py  │  │  WhatsApp    │  │  workflows   │   │
+│  │ - cron jobs  │  │  gateway     │  │              │   │
+│  │ - modelo     │  └──────┬───────┘  └──────────────┘   │
 │  └──────┬───────┘         │                             │
 │         │                 │                             │
-│    ┌────┴────┐      ┌─────┴─────┐                      │
-│    │ SQLite  │      │ WhatsApp  │                      │
-│    │ WAL mode│      │           │                      │
-│    └─────────┘      └───────────┘                      │
+│    ┌────┴────┐      ┌─────┴─────┐                       │
+│    │ SQLite  │      │ WhatsApp  │                       │
+│    │ WAL mode│      │           │                       │
+│    └─────────┘      └───────────┘                       │
 └─────────────────────────────────────────────────────────┘
          │
     ┌────┴────┐
