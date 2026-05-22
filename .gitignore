@@ -1,0 +1,36 @@
+# Ambiente
+.env
+*.pyc
+__pycache__/
+
+# Banco de dados
+data/viradas.db
+data/viradas.db-wal
+data/viradas.db-shm
+data/viradas.db.backup
+data/viradas.db.corrupt
+data/viradas.db.new
+data/.cron_executed
+data/.fuse_hidden*
+
+# Docs internos com dados sensiveis
+docs/plans/
+
+# Scripts de debug/temp
+python/fix_db.py
+python/debug_match.py
+python/check_today.py
+python/check_status.py
+python/stats_report.py
+python/analyze.py
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

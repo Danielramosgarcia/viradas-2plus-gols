@@ -1,0 +1,53 @@
+{
+  "name": "Viradas 2+ | Coleta Diária (3h)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 3 * * *"
+            }
+          ]
+        }
+      },
+      "id": "cron-collect",
+      "name": "Cron 3h",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://python-worker:8000/collect",
+        "method": "POST",
+        "options": {
+          "timeout": 600000
+        }
+      },
+      "id": "http-collect",
+      "name": "Chamar Coleta",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [500, 300]
+    }
+  ],
+  "connections": {
+    "Cron 3h": {
+      "main": [
+        [
+          {
+            "node": "Chamar Coleta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo"
+  }
+}

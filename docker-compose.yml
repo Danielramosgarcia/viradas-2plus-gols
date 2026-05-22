@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  n8n:
+    image: n8nio/n8n
+    container_name: n8n
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./python:/home/node/python
+      - ./data:/home/node/data
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=false
+      - GENERIC_TIMEZONE=America/Sao_Paulo
+      - TZ=America/Sao_Paulo
+
+  evolution-api:
+    image: atendai/evolution-api:v1.8.7
+    container_name: evolution-api
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - evolution_data:/evolution/instances
+    environment:
+      - AUTHENTICATION_API_KEY=${EVOLUTION_API_KEY}
+      - SERVER_URL=http://localhost:8080
+
+  python-worker:
+    build:
+      context: ./python
+      dockerfile: Dockerfile
+    container_name: python-worker
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./python:/app
+      - ./data:/app/data
+    environment:
+      - TZ=America/Sao_Paulo
+      - PYTHONUNBUFFERED=1
+      - EVOLUTION_URL=http://evolution-api:8080
+      - EVOLUTION_API_KEY=${EVOLUTION_API_KEY}
+      - EVOLUTION_INSTANCE=${EVOLUTION_INSTANCE:-viradas-bot}
+      - WHATSAPP_NUMBERS=${WHATSAPP_NUMBERS}
+    command: python server.py
+
+volumes:
+  n8n_data:
+  evolution_data:

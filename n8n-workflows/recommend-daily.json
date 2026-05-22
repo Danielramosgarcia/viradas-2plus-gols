@@ -1,0 +1,53 @@
+{
+  "name": "Viradas 2+ | Recomendação Diária (7h)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 7 * * *"
+            }
+          ]
+        }
+      },
+      "id": "cron-recommend",
+      "name": "Cron 7h",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://python-worker:8000/recommend",
+        "method": "POST",
+        "options": {
+          "timeout": 300000
+        }
+      },
+      "id": "http-recommend",
+      "name": "Chamar Recomendação",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [500, 300]
+    }
+  ],
+  "connections": {
+    "Cron 7h": {
+      "main": [
+        [
+          {
+            "node": "Chamar Recomendação",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo"
+  }
+}
